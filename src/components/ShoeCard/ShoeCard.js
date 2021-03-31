@@ -1,19 +1,12 @@
 import React from 'react';
+import { Tag } from 'react-feather';
 import styled from 'styled-components/macro';
 
 import { COLORS, WEIGHTS } from '../../constants';
 import { formatPrice, pluralize, isNewShoe } from '../../utils';
 import Spacer from '../Spacer';
 
-const ShoeCard = ({
-  slug,
-  name,
-  imageSrc,
-  price,
-  salePrice,
-  releaseDate,
-  numOfColors,
-}) => {
+const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfColors }) => {
   // There are 3 variants possible, based on the props:
   //   - new-release
   //   - on-sale
@@ -25,17 +18,19 @@ const ShoeCard = ({
   // both on-sale and new-release, but in this case, `on-sale`
   // will triumph and be the variant used.
   // prettier-ignore
+
   const variant = typeof salePrice === 'number'
     ? 'on-sale'
     : isNewShoe(releaseDate)
       ? 'new-release'
       : 'default'
-
+  
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          <Flag>Just released!</Flag>
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -50,18 +45,41 @@ const ShoeCard = ({
   );
 };
 
+const Flag = styled.div`
+  position: absolute;
+  top:0;
+  right:0;
+  margin: 12px -4px 0;
+  padding: 8px;
+  border-radius: 2px;
+  width: fit-content;
+  background-color:${COLORS.secondary};
+
+  font-size: ${14/16}rem;
+  font-weight:700;
+  color:${COLORS.white};
+
+`
+
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
+  flex: 1 0 300px;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ImageWrapper = styled.div`
   position: relative;
 `;
 
-const Image = styled.img``;
+const Image = styled.img`
+  width:100%;
+  border-radius: 16px 16px 4px 4px;
+`;
 
 const Row = styled.div`
   font-size: 1rem;
