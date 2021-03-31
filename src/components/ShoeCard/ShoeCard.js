@@ -24,13 +24,22 @@ const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfCo
     : isNewShoe(releaseDate)
       ? 'new-release'
       : 'default'
-  
+
+  let color,content;
+  if ( variant === "on-sale" ){
+    color = `${COLORS.primary}` ;
+    content = "Sale";
+  } else if ( variant === "new-release" ){
+    color = `${COLORS.secondary}`;
+    content = "Just Released!"
+  }
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
-          <Flag>Just released!</Flag>
+          <Flag style={{"--color": color}}>{content}</Flag>
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -53,14 +62,12 @@ const Flag = styled.div`
   padding: 8px;
   border-radius: 2px;
   width: fit-content;
-  background-color:${COLORS.secondary};
+  background-color: var(--color);
 
   font-size: ${14/16}rem;
   font-weight:700;
   color:${COLORS.white};
-
 `
-
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
