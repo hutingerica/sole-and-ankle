@@ -49,12 +49,19 @@ const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfCo
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
-          <Flag style={{"--color": flagColor}}>{content}</Flag>
+          <Flag style={{
+            "--color": flagColor}}>
+              {content}
+          </Flag>
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price style={{'--textColor': textColor,'--textDecor':textDecor}}>{formatPrice(price)}</Price>
+          <Price style={{
+            '--textColor': textColor,
+            '--textDecor':textDecor}}>
+              {formatPrice(price)}
+          </Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
@@ -72,7 +79,6 @@ const Flag = styled.div`
   margin: 12px -4px 0;
   padding: 8px;
   border-radius: 2px;
-  width: fit-content;
   background-color: var(--color);
 
   font-size: ${14/16}rem;
@@ -82,7 +88,6 @@ const Flag = styled.div`
 const Link = styled.a`
   text-decoration: none;
   color: inherit;
-  flex: 1 0 300px;
 `;
 
 const Wrapper = styled.article`

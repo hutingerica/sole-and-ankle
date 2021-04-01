@@ -30,16 +30,15 @@ const MainHeader = styled.div`
   padding: 0 32px;
   border-bottom: 1px solid ${COLORS.gray[300]};
   display: flex;
-  gap: 48px;
-  align-items: center;
+  /* gap: 48px; */
+  align-items: baseline;
 `;
 
 const Nav = styled.nav`
-  flex:1;
+  flex: 1;
   padding: 26px 0;
-  display:flex;
-  justify-content:center;
-  gap:48px;
+  display: flex;
+  justify-content: center;
 
 `;
 
@@ -49,9 +48,12 @@ const NavLink = styled.a`
   text-decoration: none;
   color: ${COLORS.gray[900]};
   font-weight: ${WEIGHTS.medium};
+  margin-right: 48px;
 
   &:first-of-type {
     color: ${COLORS.secondary};
+    margin-left: 48px;
+
   }
 `;
 
