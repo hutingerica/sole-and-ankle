@@ -25,13 +25,23 @@ const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfCo
       ? 'new-release'
       : 'default'
 
-  let color,content;
+  let flagColor,content;
+  let textColor,textDecor,saleToggleContent;
+
   if ( variant === "on-sale" ){
-    color = `${COLORS.primary}` ;
+    saleToggleContent = `${formatPrice(salePrice)}`;
+    textDecor = "line-through";
+    textColor = `${COLORS.gray[700]}`;
+    flagColor = `${COLORS.primary}` ;
     content = "Sale";
   } else if ( variant === "new-release" ){
-    color = `${COLORS.secondary}`;
-    content = "Just Released!"
+    textDecor = "none";
+    textColor = `${COLORS.gray[900]}`;
+    flagColor = `${COLORS.secondary}`;
+    content = "Just Released!";
+  } else {
+    textDecor = "none";
+    textColor = `${COLORS.gray[900]}`;
   }
 
   return (
@@ -39,15 +49,16 @@ const ShoeCard = ({ slug, name, imageSrc, price, salePrice, releaseDate, numOfCo
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
-          <Flag style={{"--color": color}}>{content}</Flag>
+          <Flag style={{"--color": flagColor}}>{content}</Flag>
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price>{formatPrice(price)}</Price>
+          <Price style={{'--textColor': textColor,'--textDecor':textDecor}}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
+          <SalePrice>{saleToggleContent}</SalePrice>
         </Row>
       </Wrapper>
     </Link>
@@ -90,6 +101,8 @@ const Image = styled.img`
 
 const Row = styled.div`
   font-size: 1rem;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Name = styled.h3`
@@ -97,7 +110,10 @@ const Name = styled.h3`
   color: ${COLORS.gray[900]};
 `;
 
-const Price = styled.span``;
+const Price = styled.span`
+  text-decoration: var(--textDecor);
+  color: var(--textColor);
+`;
 
 const ColorInfo = styled.p`
   color: ${COLORS.gray[700]};
